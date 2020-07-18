@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import imutils
 import matplotlib.pyplot as plt
+from scipy.spatial import distance as dist
 
 weights_file = 'yolov3.weights'
 conf_file = 'yolov3.cfg'
@@ -13,10 +14,10 @@ label_file = 'coco.names'
 classes= open(label_file).read().strip().split("\n")  
 
 
-def check_distance(a,b):
-	distance = ((a[0] - b[0])**2 + (a[1]-b[1])**2)**0.5
-	calibrate = (a[1]+b[1])/2
-	if 0<distance<0.25*calibrate:
+def measure_distance(a,b):
+	distance = dist.euclidean(a,b)
+	metric = (a[1]+b[1])/2
+	if 0<distance<0.25*metric:
 		return True
 	else:
 		return False
@@ -88,7 +89,7 @@ if len(indices)>0:
 
 	for i in range(len(center)):
 		for j in range(len(center)):
-			check = check_distance(center[i],center[j])
+			check = measure_distance(center[i],center[j])
 			if check:
 				pairs.append([center[i],center[j]])
 				status[i]= True
@@ -122,8 +123,8 @@ if len(indices)>0:
 
 		index+=1
 
-	for h in pairs:
-		cv2.line(img, tuple(h[0]), tuple(h[1]), (0, 0, 255), 2)
+	# for h in pairs:
+	# 	cv2.line(img, tuple(h[0]), tuple(h[1]), (0, 0, 255), 2)
 
 
 
