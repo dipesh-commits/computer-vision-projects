@@ -21,23 +21,14 @@ batch_size = 8
 epochs = 30
 lr = 0.001
 
-datapath = 'dataset'
+datapath = 'dataset'   #input data path
 
 augmentor = ImageDataGenerator(rescale= 1./255,rotation_range=20, zoom_range=0.15,width_shift_range=0.2, height_shift_range=0.2, shear_range=0.15,horizontal_flip=True, fill_mode="nearest",validation_split=0.2)
 
-train_generator = augmentor.flow_from_directory(
-    datapath,
-    target_size=(img_height, img_width),
-    batch_size=batch_size,
-    class_mode='categorical',
-    subset='training') # set as training data
 
-validation_generator = augmentor.flow_from_directory(
-    datapath, # same directory as training data
-    target_size=(img_height, img_width),
-    batch_size=batch_size,
-    class_mode='categorical',
-    subset='validation') # set as validation data
+train_generator = augmentor.flow_from_directory(datapath,target_size=(img_height, img_width),batch_size=batch_size,class_mode='categorical', subset='training') # set as training data
+
+validation_generator = augmentor.flow_from_directory(datapath,target_size=(img_height, img_width),batch_size=batch_size, class_mode='categorical',subset='validation') # set as validation data
 
 
 

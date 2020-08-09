@@ -4,16 +4,10 @@ import numpy as np
 from mtcnn.mtcnn import MTCNN
 
 
-
-
-
-output_path = 'dataset/real'
-
-dataset = 'dataset'   #data path
+output_path = 'dataset/real'  #output path for saving data
+dataset = 'dataset'   #input data path
 detector = MTCNN()
-# cap = cv2.VideoCapture('video/real_video.mp4')
-
-read = 0
+frames = 0
 
 #for detecting face in images
 image_path = []
@@ -24,11 +18,11 @@ try:
 	for j in image_path:
 		image = cv2.imread(j)
 		faces = detector.detect_faces(image)
-		read+=1
+		frame+=1
 		for face in faces:
 			x, y ,w, h = face['box']
 			required = image[y:y+h,x:x+w]
-			saving_path = os.path.join(output_path,"{}.png".format(read))
+			saving_path = os.path.join(output_path,"{}.png".format(frames))
 			cv2.imwrite(saving_path,required)
 			print("[INFO] saved {} to disk".format(saving_path))
 except:
@@ -36,6 +30,7 @@ except:
 
 
 #for detecting in videos
+# cap = cv2.VideoCapture('video/real_video.mp4')
 # while True:
 # 	ret, frame = cap.read()
 
@@ -49,7 +44,7 @@ except:
 # 		frame = cv2.resize(frame,(720,640),fx=0,fy=0)
 
 # 		frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
-# 		saving_path = os.path.join(output_path,"{}.png".format(read))
+# 		saving_path = os.path.join(output_path,"{}.png".format(frames))
 # 		cv2.imwrite(saving_path,frame)
 # 		print("[INFO] saved {} to disk".format(saving_path))
 
@@ -61,6 +56,6 @@ except:
 			# 	break
 
 
-print("Total frames",read)
+print("Total frames",frames)
 # cap.release()
 cv2.destroyAllWindows()
