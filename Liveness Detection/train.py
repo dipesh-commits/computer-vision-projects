@@ -6,6 +6,9 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from sklearn.metrics import classification_report
 from tensorflow.python.util import deprecation
+
+
+
 deprecation._PRINT_DEPRECATION_WARNINGS = False
 
 
@@ -13,9 +16,8 @@ deprecation._PRINT_DEPRECATION_WARNINGS = False
 
 
 
-img_height = 360
-img_width = 360
-input_shape = (360,360,3)
+img_height, img_width = 360, 360
+input_shape = (img_height,img_width,3)
 num_classes = 2
 batch_size = 8
 epochs = 30
