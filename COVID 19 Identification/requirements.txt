@@ -1,5 +1,8 @@
+tensorflow
+sklearn
 opencv
 numpy
 pandas
+loguru
 matplotlib
 xlrd
